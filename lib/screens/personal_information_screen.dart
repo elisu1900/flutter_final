@@ -41,176 +41,179 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Indicador de progreso
-              const Text(
-                'Paso 1 de 3',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: AppColors.secondaryTextColor,
-                ),
-              ),
-              const SizedBox(height: 8),
-              LinearProgressIndicator(
-                value: 1 / 3,
-                backgroundColor: const Color(0xFFE0E0E0),
-                valueColor: const AlwaysStoppedAnimation<Color>(
-                  AppColors.primary,
-                ),
-                minHeight: 6,
-                borderRadius: BorderRadius.circular(3),
-              ),
-              const SizedBox(height: 24),
-
-              const Text(
-                'Cuéntanos más sobre ti para personalizar tu experiencia',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.secondaryTextColor,
-                ),
-              ),
-              const SizedBox(height: 32),
-
-              // Campo de edad
-              const Text(
-                'Edad',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.primaryTextColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _ageController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  hintText: 'Ej: 25',
-                  hintStyle: TextStyle(
-                    color: AppColors.primaryTextColor.withAlpha(128),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 16,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Indicador de progreso
+                const Text(
+                  'Paso 1 de 3',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: AppColors.secondaryTextColor,
                   ),
                 ),
-              ),
-              const SizedBox(height: 24),
-
-              // Selector de sexo
-              const Text(
-                'Sexo',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.primaryTextColor,
-                  fontWeight: FontWeight.w500,
+                const SizedBox(height: 8),
+                LinearProgressIndicator(
+                  value: 1 / 3,
+                  backgroundColor: const Color(0xFFE0E0E0),
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    AppColors.primary,
+                  ),
+                  minHeight: 6,
+                  borderRadius: BorderRadius.circular(3),
                 ),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedGender = 'masculino';
-                        });
-                      },
-                      child: Container(
-                        height: 56,
-                        decoration: BoxDecoration(
-                          color: _selectedGender == 'masculino'
-                              ? AppColors.primary
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Masculino',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: _selectedGender == 'masculino'
-                                  ? Colors.white
-                                  : AppColors.primaryTextColor,
-                            ),
-                          ),
-                        ),
-                      ),
+                const SizedBox(height: 24),
+
+                const Text(
+                  'Cuéntanos más sobre ti para personalizar tu experiencia',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.secondaryTextColor,
+                  ),
+                ),
+                const SizedBox(height: 32),
+
+                // Campo de edad
+                const Text(
+                  'Edad',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.primaryTextColor,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  controller: _ageController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'Ej: 25',
+                    hintStyle: TextStyle(
+                      color: AppColors.primaryTextColor.withAlpha(128),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedGender = 'femenino';
-                        });
-                      },
-                      child: Container(
-                        height: 56,
-                        decoration: BoxDecoration(
-                          color: _selectedGender == 'femenino'
-                              ? AppColors.primary
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Femenino',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: _selectedGender == 'femenino'
-                                  ? Colors.white
-                                  : AppColors.primaryTextColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              const Spacer(),
-
-              // Botón siguiente
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/register3');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
                     ),
-                    elevation: 0,
-                  ),
-                  child: const Text(
-                    'Siguiente',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.buttonTextColors,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 16,
                     ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 24),
+
+                // Selector de sexo
+                const Text(
+                  'Sexo',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.primaryTextColor,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedGender = 'masculino';
+                          });
+                        },
+                        child: Container(
+                          height: 56,
+                          decoration: BoxDecoration(
+                            color: _selectedGender == 'masculino'
+                                ? AppColors.primary
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Masculino',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: _selectedGender == 'masculino'
+                                    ? Colors.white
+                                    : AppColors.primaryTextColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedGender = 'femenino';
+                          });
+                        },
+                        child: Container(
+                          height: 56,
+                          decoration: BoxDecoration(
+                            color: _selectedGender == 'femenino'
+                                ? AppColors.primary
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Femenino',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: _selectedGender == 'femenino'
+                                    ? Colors.white
+                                    : AppColors.primaryTextColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+
+                // Botón siguiente
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/register3');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: const Text(
+                      'Siguiente',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.buttonTextColors,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
+            ),
           ),
         ),
       ),
