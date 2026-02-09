@@ -58,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 32),
-              
+
               // Campo de nombre completo
               const Text(
                 'Nombre completo',
@@ -93,13 +93,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              
+
               // Campo de correo electrónico
               const Text(
                 'Correo electrónico',
                 style: TextStyle(
                   fontSize: 14,
-                  color:AppColors.primaryTextColor,
+                  color: AppColors.primaryTextColor,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -110,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 decoration: InputDecoration(
                   hintText: 'tu@email.com',
                   hintStyle: TextStyle(
-                    color:AppColors.primaryTextColor.withAlpha(128),
+                    color: AppColors.primaryTextColor.withAlpha(128),
                   ),
                   prefixIcon: const Icon(
                     Icons.email_outlined,
@@ -129,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              
+
               // Campo de contraseña
               const Text(
                 'Contraseña',
@@ -178,14 +178,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 32),
-              
+
               // Botón de continuar
               SizedBox(
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Acción vacía por ahora
+                    Navigator.pushNamed(context, '/register2');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,

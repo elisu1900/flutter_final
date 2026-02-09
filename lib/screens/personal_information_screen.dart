@@ -58,12 +58,14 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               LinearProgressIndicator(
                 value: 1 / 3,
                 backgroundColor: const Color(0xFFE0E0E0),
-                valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                valueColor: const AlwaysStoppedAnimation<Color>(
+                  AppColors.primary,
+                ),
                 minHeight: 6,
                 borderRadius: BorderRadius.circular(3),
               ),
               const SizedBox(height: 24),
-              
+
               const Text(
                 'Cuéntanos más sobre ti para personalizar tu experiencia',
                 style: TextStyle(
@@ -72,7 +74,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 ),
               ),
               const SizedBox(height: 32),
-              
+
               // Campo de edad
               const Text(
                 'Edad',
@@ -104,7 +106,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              
+
               // Selector de sexo
               const Text(
                 'Sexo',
@@ -180,16 +182,16 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                   ),
                 ],
               ),
-              
+
               const Spacer(),
-              
+
               // Botón siguiente
               SizedBox(
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Acción vacía por ahora
+                    Navigator.pushNamed(context, '/register3');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,

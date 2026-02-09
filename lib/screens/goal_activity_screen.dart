@@ -42,7 +42,7 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
           title,
           style: TextStyle(
             fontSize: 16,
-            color: isSelected ?AppColors.primary : AppColors.primaryTextColor,
+            color: isSelected ? AppColors.primary : AppColors.primaryTextColor,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
           ),
         ),
@@ -76,7 +76,9 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
               title,
               style: TextStyle(
                 fontSize: 16,
-                color: isSelected ? AppColors.primary : AppColors.primaryTextColor,
+                color: isSelected
+                    ? AppColors.primary
+                    : AppColors.primaryTextColor,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
               ),
             ),
@@ -102,7 +104,7 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
         backgroundColor: AppColors.background,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color:AppColors.primaryTextColor),
+          icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextColor),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -137,12 +139,14 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
                     LinearProgressIndicator(
                       value: 3 / 3,
                       backgroundColor: AppColors.background,
-                      valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        AppColors.primary,
+                      ),
                       minHeight: 6,
                       borderRadius: BorderRadius.circular(3),
                     ),
                     const SizedBox(height: 24),
-                    
+
                     const Text(
                       '¡Último paso! Define tus objetivos',
                       style: TextStyle(
@@ -151,7 +155,7 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
                       ),
                     ),
                     const SizedBox(height: 32),
-                    
+
                     const Text(
                       'Objetivo',
                       style: TextStyle(
@@ -165,7 +169,7 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
                     _buildGoalOption('Ganar peso'),
                     _buildGoalOption('Mantener peso'),
                     const SizedBox(height: 32),
-                    
+
                     const Text(
                       'Nivel de actividad física',
                       style: TextStyle(
@@ -192,7 +196,7 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
                       'Actividad física intensa (ej: repartidor en bici)',
                     ),
                     const SizedBox(height: 32),
-                    
+
                     // Fecha de nacimiento
                     const Text(
                       'Fecha de nacimiento',
@@ -225,7 +229,7 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
                         );
                         if (picked != null) {
                           setState(() {
-                            _birthDateController.text = 
+                            _birthDateController.text =
                                 '${picked.day.toString().padLeft(2, '0')}/${picked.month.toString().padLeft(2, '0')}/${picked.year}';
                           });
                         }
@@ -256,7 +260,7 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
                 ),
               ),
             ),
-            
+
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: SizedBox(
@@ -264,6 +268,7 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
+                    Navigator.pushNamed(context, '/login');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,

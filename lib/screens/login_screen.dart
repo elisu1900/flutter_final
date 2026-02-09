@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final_app/screens/register_screen.dart';
 import '../styles/app_colors.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 80,
                 ),
                 const SizedBox(height: 16),
-                
+
                 // Título
                 const Text(
                   'NutriTrack',
@@ -49,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                
+
                 // Subtítulo
                 const Text(
                   'Bienvenido de nuevo',
@@ -59,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                
+
                 // Campo de correo electrónico
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                         hintText: 'tu@email.com',
                         hintStyle: TextStyle(
-                          color:  AppColors.primaryTextColor.withAlpha(128),
+                          color: AppColors.primaryTextColor.withAlpha(128),
                         ),
                         prefixIcon: const Icon(
                           Icons.email_outlined,
@@ -100,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 const SizedBox(height: 24),
-                
+
                 // Campo de contraseña
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 const SizedBox(height: 32),
-                
+
                 // Botón de iniciar sesión
                 SizedBox(
                   width: double.infinity,
@@ -181,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                
+
                 // Registro
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -195,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        // Acción vacía por ahora
+                        Navigator.pushNamed(context, '/register');
                       },
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.only(left: 4),
