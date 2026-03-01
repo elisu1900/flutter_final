@@ -14,18 +14,37 @@ dependencies:
   shared_preferences: ^2.3.2
   http: ^1.2.0
 
+
 dev_dependencies:
+  flutter_launcher_icons: ^0.14.1
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  flutter_launcher_icons: ^0.13.1  
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/state_images/logo_splash.png"
+  background_color_android: "#EF6C00"
+  adaptive_icon_background: "#EF6C00"
+  adaptive_icon_foreground: "assets/state_images/logo_splash.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/state_images/logo_splash.png"
+    background_color: "#EF6C00"
+    theme_color: "#EF6C00"
+  windows:
+    generate: true
+    image_path: "assets/state_images/logo_splash.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/state_images/logo_splash.png"
+
 
 flutter:
   uses-material-design: true
   assets:
     - assets/state_images/
-
-flutter_icons: 
-  android: true
-  ios: true
-  image_path: "assets/state_images/logo.png"
