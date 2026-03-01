@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final_app/services/user_profile_service.dart';
 import 'package:flutter_final_app/styles/app_colors.dart';
 
 class PersonalInfoScreen extends StatefulWidget {
@@ -10,12 +11,28 @@ class PersonalInfoScreen extends StatefulWidget {
 
 class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   final _ageController = TextEditingController();
-  String? _selectedGender; // 'masculino' o 'femenino'
+  String? _selectedGender;
+  String? _errorMsg;
 
   @override
   void dispose() {
     _ageController.dispose();
     super.dispose();
+  }
+
+  void _next() {
+    final age = int.tryParse(_ageController.text.trim()) ?? 0;
+    if (age <= 0 || age > 120) {
+      setState(() => _errorMsg = 'Introduce una edad válida.');
+      return;
+    }
+    if (_selectedGender == null) {
+      setState(() => _errorMsg = 'Selecciona tu sexo.');
+      return;
+    }
+    RegisterData.edad = age;
+    RegisterData.sexo = _selectedGender!;
+    Navigator.pushNamed(context, '/register3');
   }
 
   @override
@@ -27,9 +44,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextColor),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Información personal',
@@ -47,44 +62,32 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Indicador de progreso
-                const Text(
-                  'Paso 1 de 3',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.secondaryTextColor,
-                  ),
-                ),
+                const Text('Paso 1 de 3',
+                    style: TextStyle(
+                        fontSize: 12, color: AppColors.secondaryTextColor)),
                 const SizedBox(height: 8),
                 LinearProgressIndicator(
                   value: 1 / 3,
                   backgroundColor: const Color(0xFFE0E0E0),
-                  valueColor: const AlwaysStoppedAnimation<Color>(
-                    AppColors.primary,
-                  ),
+                  valueColor:
+                      const AlwaysStoppedAnimation<Color>(AppColors.primary),
                   minHeight: 6,
                   borderRadius: BorderRadius.circular(3),
                 ),
                 const SizedBox(height: 24),
-
                 const Text(
                   'Cuéntanos más sobre ti para personalizar tu experiencia',
                   style: TextStyle(
-                    fontSize: 14,
-                    color: AppColors.secondaryTextColor,
-                  ),
+                      fontSize: 14, color: AppColors.secondaryTextColor),
                 ),
                 const SizedBox(height: 32),
 
-                // Campo de edad
-                const Text(
-                  'Edad',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: AppColors.primaryTextColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                // Edad
+                const Text('Edad',
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.primaryTextColor,
+                        fontWeight: FontWeight.w500)),
                 const SizedBox(height: 8),
                 TextField(
                   controller: _ageController,
@@ -92,126 +95,96 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                   decoration: InputDecoration(
                     hintText: 'Ej: 25',
                     hintStyle: TextStyle(
-                      color: AppColors.primaryTextColor.withAlpha(128),
-                    ),
+                        color: AppColors.primaryTextColor.withAlpha(128)),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none),
                     contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
+                        horizontal: 16, vertical: 16),
                   ),
                 ),
                 const SizedBox(height: 24),
 
-                // Selector de sexo
-                const Text(
-                  'Sexo',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: AppColors.primaryTextColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                // Sexo
+                const Text('Sexo',
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.primaryTextColor,
+                        fontWeight: FontWeight.w500)),
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedGender = 'masculino';
-                          });
-                        },
-                        child: Container(
-                          height: 56,
-                          decoration: BoxDecoration(
-                            color: _selectedGender == 'masculino'
-                                ? AppColors.primary
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Masculino',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: _selectedGender == 'masculino'
-                                    ? Colors.white
-                                    : AppColors.primaryTextColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    Expanded(child: _genderBtn('masculino', 'Masculino')),
                     const SizedBox(width: 16),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedGender = 'femenino';
-                          });
-                        },
-                        child: Container(
-                          height: 56,
-                          decoration: BoxDecoration(
-                            color: _selectedGender == 'femenino'
-                                ? AppColors.primary
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Femenino',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: _selectedGender == 'femenino'
-                                    ? Colors.white
-                                    : AppColors.primaryTextColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    Expanded(child: _genderBtn('femenino', 'Femenino')),
                   ],
                 ),
 
-                SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+                if (_errorMsg != null) ...[
+                  const SizedBox(height: 16),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFEBEE),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(_errorMsg!,
+                        style: const TextStyle(
+                            fontSize: 13, color: Color(0xFFD32F2F))),
+                  ),
+                ],
+
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.25),
 
                 SizedBox(
                   width: double.infinity,
                   height: 56,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/register3');
-                    },
+                    onPressed: _next,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                          borderRadius: BorderRadius.circular(12)),
                       elevation: 0,
                     ),
-                    child: const Text(
-                      'Siguiente',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.buttonTextColors,
-                      ),
-                    ),
+                    child: const Text('Siguiente',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white)),
                   ),
                 ),
                 const SizedBox(height: 24),
               ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _genderBtn(String value, String label) {
+    final selected = _selectedGender == value;
+    return GestureDetector(
+      onTap: () => setState(() => _selectedGender = value),
+      child: Container(
+        height: 56,
+        decoration: BoxDecoration(
+          color: selected ? AppColors.primary : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color:
+                  selected ? Colors.white : AppColors.primaryTextColor,
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final_app/services/user_profile_service.dart';
 import 'package:flutter_final_app/styles/app_colors.dart';
 
 class BodyMeasuresScreen extends StatefulWidget {
@@ -11,12 +12,31 @@ class BodyMeasuresScreen extends StatefulWidget {
 class _BodyMeasuresScreenState extends State<BodyMeasuresScreen> {
   final _weightController = TextEditingController();
   final _heightController = TextEditingController();
+  String? _errorMsg;
 
   @override
   void dispose() {
     _weightController.dispose();
     _heightController.dispose();
     super.dispose();
+  }
+
+  void _next() {
+    final peso = double.tryParse(_weightController.text.trim()) ?? 0;
+    final altura = double.tryParse(_heightController.text.trim()) ?? 0;
+
+    if (peso <= 0 || peso > 300) {
+      setState(() => _errorMsg = 'Introduce un peso válido (kg).');
+      return;
+    }
+    if (altura <= 0 || altura > 250) {
+      setState(() => _errorMsg = 'Introduce una altura válida (cm).');
+      return;
+    }
+
+    RegisterData.peso = peso;
+    RegisterData.altura = altura;
+    Navigator.pushNamed(context, '/register4');
   }
 
   @override
@@ -28,9 +48,7 @@ class _BodyMeasuresScreenState extends State<BodyMeasuresScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextColor),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Medidas corporales',
@@ -48,76 +66,58 @@ class _BodyMeasuresScreenState extends State<BodyMeasuresScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Indicador de progreso
-                const Text(
-                  'Paso 2 de 3',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.secondaryTextColor,
-                  ),
-                ),
+                const Text('Paso 2 de 3',
+                    style: TextStyle(
+                        fontSize: 12, color: AppColors.secondaryTextColor)),
                 const SizedBox(height: 8),
                 LinearProgressIndicator(
                   value: 2 / 3,
-                  backgroundColor: AppColors.buttonTextColors,
-                  valueColor: const AlwaysStoppedAnimation<Color>(
-                    AppColors.primary,
-                  ),
+                  backgroundColor: const Color(0xFFE0E0E0),
+                  valueColor:
+                      const AlwaysStoppedAnimation<Color>(AppColors.primary),
                   minHeight: 6,
                   borderRadius: BorderRadius.circular(3),
                 ),
                 const SizedBox(height: 24),
-
                 const Text(
                   'Tus medidas nos ayudan a calcular tus necesidades nutricionales',
                   style: TextStyle(
-                    fontSize: 14,
-                    color: AppColors.secondaryTextColor,
-                  ),
+                      fontSize: 14, color: AppColors.secondaryTextColor),
                 ),
                 const SizedBox(height: 32),
 
-                // Campo de peso
-                const Text(
-                  'Peso (kg)',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: AppColors.primaryTextColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                // Peso
+                const Text('Peso (kg)',
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.primaryTextColor,
+                        fontWeight: FontWeight.w500)),
                 const SizedBox(height: 8),
                 TextField(
                   controller: _weightController,
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     hintText: 'Ej: 70.5',
                     hintStyle: TextStyle(
-                      color: AppColors.primaryTextColor.withAlpha(128),
-                    ),
+                        color: AppColors.primaryTextColor.withAlpha(128)),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none),
                     contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
+                        horizontal: 16, vertical: 16),
                   ),
                 ),
                 const SizedBox(height: 24),
 
-                // Campo de altura
-                const Text(
-                  'Altura (cm)',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: AppColors.primaryTextColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                // Altura
+                const Text('Altura (cm)',
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.primaryTextColor,
+                        fontWeight: FontWeight.w500)),
                 const SizedBox(height: 8),
                 TextField(
                   controller: _heightController,
@@ -125,46 +125,51 @@ class _BodyMeasuresScreenState extends State<BodyMeasuresScreen> {
                   decoration: InputDecoration(
                     hintText: 'Ej: 175',
                     hintStyle: TextStyle(
-                      color: AppColors.primaryTextColor.withAlpha(128),
-                    ),
+                        color: AppColors.primaryTextColor.withAlpha(128)),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none),
                     contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
+                        horizontal: 16, vertical: 16),
                   ),
                 ),
 
-                SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+                if (_errorMsg != null) ...[
+                  const SizedBox(height: 16),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFEBEE),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(_errorMsg!,
+                        style: const TextStyle(
+                            fontSize: 13, color: Color(0xFFD32F2F))),
+                  ),
+                ],
 
-                // Botón siguiente
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.25),
+
                 SizedBox(
                   width: double.infinity,
                   height: 56,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/register4');
-                    },
+                    onPressed: _next,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                          borderRadius: BorderRadius.circular(12)),
                       elevation: 0,
                     ),
-                    child: const Text(
-                      'Siguiente',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: const Text('Siguiente',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white)),
                   ),
                 ),
                 const SizedBox(height: 24),

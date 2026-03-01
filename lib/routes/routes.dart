@@ -20,8 +20,8 @@ class AppRoutes {
   static const String verDietas   = '/ver-dietas';
   static const String dietaView   = '/dieta-view';
   static const String modifyDieta = '/modify-dieta';
+  static const String revision    = '/revision';   // ← nueva
 
-  // Rutas simples (sin argumentos)
   static final Map<String, WidgetBuilder> routes = {
     splash:    (_) => const SplashScreen(),
     login:     (_) => const LoginScreen(),
@@ -32,7 +32,6 @@ class AppRoutes {
     verDietas: (_) => const VerDietasScreen(),
   };
 
-  // Rutas con argumentos
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case dietaView:

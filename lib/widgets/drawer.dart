@@ -15,7 +15,7 @@ class MenuDrawer extends StatelessWidget {
         color: AppColors.background,
         child: Column(
           children: [
-            // Header
+            // ── Header ────────────────────────────────────────────────────
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
@@ -34,7 +34,7 @@ class MenuDrawer extends StatelessWidget {
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(Icons.person,
-                        color: AppColors.buttonTextColors, size: 28),
+                        color: Colors.white, size: 28),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -68,7 +68,7 @@ class MenuDrawer extends StatelessWidget {
               ),
             ),
 
-            // Opciones
+            // ── Opciones ──────────────────────────────────────────────────
             Container(
               decoration: const BoxDecoration(
                 border: Border(
@@ -93,7 +93,7 @@ class MenuDrawer extends StatelessWidget {
 
             const Spacer(),
 
-            // Cerrar sesión
+            // ── Cerrar sesión ─────────────────────────────────────────────
             Container(
               decoration: const BoxDecoration(
                 border: Border(

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_final_app/services/user_profile_service.dart';
 import 'package:flutter_final_app/styles/app_colors.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -35,7 +36,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
     if (password.length < 6) {
-      setState(() => _errorMsg = 'La contraseña debe tener al menos 6 caracteres.');
+      setState(
+          () => _errorMsg = 'La contraseña debe tener al menos 6 caracteres.');
       return;
     }
 
@@ -50,16 +52,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         email: email,
         password: password,
       );
-      // Guardar displayName
       await credential.user?.updateDisplayName(name);
 
-      if (mounted) {
-        Navigator.pushNamed(context, '/register2');
-      }
+      // Guardamos en RegisterData para usarlo en los pasos siguientes
+      RegisterData.nombre = name;
+      RegisterData.email = email;
+
+      if (mounted) Navigator.pushNamed(context, '/register2');
     } on FirebaseAuthException catch (e) {
-      setState(() {
-        _errorMsg = _mapError(e.code);
-      });
+      setState(() => _errorMsg = _mapError(e.code));
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -107,91 +108,78 @@ class _RegisterScreenState extends State<RegisterScreen> {
               const Text(
                 'Completa tus datos para comenzar tu viaje saludable',
                 style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.secondaryTextColor,
-                ),
+                    fontSize: 14, color: AppColors.secondaryTextColor),
               ),
               const SizedBox(height: 32),
 
               // Nombre
-              const Text(
-                'Nombre completo',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.primaryTextColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              const Text('Nombre completo',
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.primaryTextColor,
+                      fontWeight: FontWeight.w500)),
               const SizedBox(height: 8),
               TextField(
                 controller: _nameController,
                 textCapitalization: TextCapitalization.words,
                 decoration: InputDecoration(
                   hintText: 'Juan Pérez',
-                  hintStyle:
-                      TextStyle(color: AppColors.primaryTextColor.withAlpha(128)),
+                  hintStyle: TextStyle(
+                      color: AppColors.primaryTextColor.withAlpha(128)),
                   prefixIcon: const Icon(Icons.person_outline,
                       color: AppColors.secondaryTextColor),
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 16),
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 ),
               ),
               const SizedBox(height: 24),
 
               // Email
-              const Text(
-                'Correo electrónico',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.primaryTextColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              const Text('Correo electrónico',
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.primaryTextColor,
+                      fontWeight: FontWeight.w500)),
               const SizedBox(height: 8),
               TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'tu@email.com',
-                  hintStyle:
-                      TextStyle(color: AppColors.primaryTextColor.withAlpha(128)),
+                  hintStyle: TextStyle(
+                      color: AppColors.primaryTextColor.withAlpha(128)),
                   prefixIcon: const Icon(Icons.email_outlined,
                       color: AppColors.secondaryTextColor),
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 16),
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 ),
               ),
               const SizedBox(height: 24),
 
-              // Password
-              const Text(
-                'Contraseña',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.primaryTextColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              // Contraseña
+              const Text('Contraseña',
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.primaryTextColor,
+                      fontWeight: FontWeight.w500)),
               const SizedBox(height: 8),
               TextField(
                 controller: _passwordController,
                 obscureText: _obscurePassword,
                 decoration: InputDecoration(
                   hintText: '••••••••',
-                  hintStyle:
-                      TextStyle(color: AppColors.primaryTextColor.withAlpha(128)),
+                  hintStyle: TextStyle(
+                      color: AppColors.primaryTextColor.withAlpha(128)),
                   prefixIcon: const Icon(Icons.lock_outlined,
                       color: AppColors.secondaryTextColor),
                   suffixIcon: IconButton(
@@ -207,15 +195,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 16),
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 ),
               ),
 
-              // Error
               if (_errorMsg != null) ...[
                 const SizedBox(height: 12),
                 Container(
@@ -225,19 +211,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     color: const Color(0xFFFFEBEE),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(
-                    _errorMsg!,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: Color(0xFFD32F2F),
-                    ),
-                  ),
+                  child: Text(_errorMsg!,
+                      style: const TextStyle(
+                          fontSize: 13, color: Color(0xFFD32F2F))),
                 ),
               ],
 
               const SizedBox(height: 32),
 
-              // Botón continuar
               SizedBox(
                 width: double.infinity,
                 height: 56,
@@ -246,10 +227,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     disabledBackgroundColor:
-                        AppColors.primary..withAlpha(128),
+                        AppColors.primary.withAlpha(128),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                        borderRadius: BorderRadius.circular(12)),
                     elevation: 0,
                   ),
                   child: _loading
@@ -257,18 +237,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           width: 22,
                           height: 22,
                           child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          ),
-                        )
-                      : const Text(
-                          'Continuar',
+                              color: Colors.white, strokeWidth: 2))
+                      : const Text('Continuar',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white)),
                 ),
               ),
             ],
