@@ -87,7 +87,6 @@ class MenuDrawer extends StatelessWidget {
                           context, AppRoutes.verDietas);
                     },
                   ),
-                  
                 ],
               ),
             ),
