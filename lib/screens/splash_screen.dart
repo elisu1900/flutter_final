@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_final_app/routes/routes.dart';
 
@@ -12,12 +13,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToLogin();
+    _navigate();
   }
 
-  void _navigateToLogin() async {
-    await Future.delayed(const Duration(seconds: 3));
-    if (mounted) {
+  Future<void> _navigate() async {
+    await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // Sesión activa → ir directo a dietas
+      Navigator.pushReplacementNamed(context, AppRoutes.verDietas);
+    } else {
       Navigator.pushReplacementNamed(context, AppRoutes.login);
     }
   }

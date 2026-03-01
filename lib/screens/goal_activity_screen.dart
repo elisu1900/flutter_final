@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_final_app/styles/app_colors.dart';
 
 class GoalsActivityScreen extends StatefulWidget {
-  const GoalsActivityScreen({Key? key}) : super(key: key);
+  const GoalsActivityScreen({super.key});
 
   @override
   State<GoalsActivityScreen> createState() => _GoalsActivityScreenState();

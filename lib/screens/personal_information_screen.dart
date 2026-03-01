@@ -186,7 +186,6 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
                 SizedBox(height: MediaQuery.of(context).size.height * 0.3),
 
-                // Botón siguiente
                 SizedBox(
                   width: double.infinity,
                   height: 56,
