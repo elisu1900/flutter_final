@@ -152,7 +152,6 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
                     ),
                     const SizedBox(height: 32),
 
-                    // Objetivos
                     const Text('Objetivo',
                         style: TextStyle(
                             fontSize: 14,
@@ -164,7 +163,6 @@ class _GoalsActivityScreenState extends State<GoalsActivityScreen> {
                     _buildGoalOption('Ganar peso', Goal.gain),
                     const SizedBox(height: 32),
 
-                    // Actividad
                     const Text('Nivel de actividad física',
                         style: TextStyle(
                             fontSize: 14,

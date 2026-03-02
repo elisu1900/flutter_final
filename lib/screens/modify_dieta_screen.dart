@@ -226,7 +226,6 @@ class _ModifyDietaScreenState extends State<ModifyDietaScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Nombre de la dieta
                   const Text(
                     'Nombre de la dieta',
                     style: TextStyle(

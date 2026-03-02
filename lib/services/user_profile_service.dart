@@ -1,15 +1,12 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// ─────────────────────────────────────────────
-//  MODEL
-// ─────────────────────────────────────────────
 
 enum ActivityLevel {
-  sedentary,    // No muy activo
-  light,        // Ligeramente activo
-  moderate,     // Activo
-  veryActive,   // Muy activo
+  sedentary,    
+  light,       
+  moderate,     
+  veryActive,   
 }
 
 enum Goal { lose, maintain, gain }
@@ -18,9 +15,9 @@ class UserProfile {
   final String nombre;
   final String email;
   final int edad;
-  final String sexo; // 'masculino' / 'femenino'
-  final double peso; // kg
-  final double altura; // cm
+  final String sexo; 
+  final double peso; 
+  final double altura; 
   final ActivityLevel actividad;
   final Goal objetivo;
 
@@ -35,7 +32,6 @@ class UserProfile {
     required this.objetivo,
   });
 
-  // ── Mifflin-St Jeor ──────────────────────────────────────────────────────
   double get tmb {
     if (sexo == 'masculino') {
       return (10 * peso) + (6.25 * altura) - (5 * edad) + 5;
@@ -70,12 +66,10 @@ class UserProfile {
     }
   }
 
-  // ── Macros 50 / 20 / 30 ──────────────────────────────────────────────────
   double get carbohidratosG => (kcalObjetivo * 0.50) / 4;
   double get proteinasG     => (kcalObjetivo * 0.20) / 4;
   double get grasasG        => (kcalObjetivo * 0.30) / 9;
 
-  // ── Serialización ─────────────────────────────────────────────────────────
   Map<String, dynamic> toJson() => {
         'nombre': nombre,
         'email': email,
@@ -99,9 +93,6 @@ class UserProfile {
       );
 }
 
-// ─────────────────────────────────────────────
-//  SERVICE
-// ─────────────────────────────────────────────
 
 class UserProfileService {
   static const String _key = 'user_profile_v1';
@@ -133,11 +124,6 @@ class UserProfileService {
   static void clearCache() => _cache = null;
 }
 
-// ─────────────────────────────────────────────
-//  REGISTRO TEMPORAL (paso a paso)
-//  Guardamos los datos parciales entre pantallas
-//  sin depender de InheritedWidget.
-// ─────────────────────────────────────────────
 
 class RegisterData {
   static String nombre = '';

@@ -82,7 +82,6 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 ),
                 const SizedBox(height: 32),
 
-                // Edad
                 const Text('Edad',
                     style: TextStyle(
                         fontSize: 14,
@@ -107,7 +106,6 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Sexo
                 const Text('Sexo',
                     style: TextStyle(
                         fontSize: 14,

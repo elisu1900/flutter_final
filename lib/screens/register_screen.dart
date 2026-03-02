@@ -54,7 +54,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
       await credential.user?.updateDisplayName(name);
 
-      // Guardamos en RegisterData para usarlo en los pasos siguientes
       RegisterData.nombre = name;
       RegisterData.email = email;
 
@@ -112,7 +111,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 32),
 
-              // Nombre
               const Text('Nombre completo',
                   style: TextStyle(
                       fontSize: 14,
@@ -139,7 +137,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 24),
 
-              // Email
               const Text('Correo electrónico',
                   style: TextStyle(
                       fontSize: 14,
@@ -166,7 +163,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 24),
 
-              // Contraseña
               const Text('Contraseña',
                   style: TextStyle(
                       fontSize: 14,

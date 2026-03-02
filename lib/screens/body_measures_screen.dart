@@ -86,7 +86,6 @@ class _BodyMeasuresScreenState extends State<BodyMeasuresScreen> {
                 ),
                 const SizedBox(height: 32),
 
-                // Peso
                 const Text('Peso (kg)',
                     style: TextStyle(
                         fontSize: 14,
@@ -112,7 +111,6 @@ class _BodyMeasuresScreenState extends State<BodyMeasuresScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Altura
                 const Text('Altura (cm)',
                     style: TextStyle(
                         fontSize: 14,

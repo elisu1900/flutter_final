@@ -1,16 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-// ─────────────────────────────────────────────
-//  MODEL
-// ─────────────────────────────────────────────
 
-/// Representa un alimento de la base de datos externa.
-/// El campo [macro] indica a qué categoría pertenece
-/// ('carbohidratos', 'proteinas', 'grasas', 'frutas').
 class AlimentoBase {
   final String nombre;
-  final String macro; // categoría del JSON
+  final String macro; 
   final double kcal;
   final double proteinas;
   final double carbohidratos;
@@ -25,7 +19,6 @@ class AlimentoBase {
     required this.grasas,
   });
 
-  /// Etiqueta legible para mostrar en la UI
   String get macroLabel {
     switch (macro) {
       case 'proteinas':
@@ -53,19 +46,14 @@ class AlimentoBase {
   }
 }
 
-// ─────────────────────────────────────────────
-//  SERVICE
-// ─────────────────────────────────────────────
 
 class AlimentosService {
   static const String _url =
       'https://raw.githubusercontent.com/elisu1900/flutter-data/refs/heads/main/data.json';
 
-  // Caché en memoria: se carga una sola vez por sesión
   static List<AlimentoBase>? _cache;
 
-  /// Carga todos los alimentos desde la URL externa.
-  /// Si ya se cargaron antes devuelve la caché directamente.
+  
   static Future<List<AlimentoBase>> getAlimentos() async {
     if (_cache != null) return _cache!;
 
@@ -78,7 +66,6 @@ class AlimentosService {
     final Map<String, dynamic> data = jsonDecode(response.body);
     final List<AlimentoBase> todos = [];
 
-    // Las categorías del JSON
     const categorias = ['carbohidratos', 'proteinas', 'grasas', 'frutas'];
 
     for (final categoria in categorias) {
@@ -92,7 +79,6 @@ class AlimentosService {
     return todos;
   }
 
-  /// Busca alimentos por nombre (insensible a mayúsculas y tildes).
   static Future<List<AlimentoBase>> buscar(String query) async {
     if (query.trim().isEmpty) return await getAlimentos();
     final todos = await getAlimentos();
@@ -100,16 +86,13 @@ class AlimentosService {
     return todos.where((a) => _normalize(a.nombre).contains(q)).toList();
   }
 
-  /// Filtra por categoría.
   static Future<List<AlimentoBase>> porCategoria(String categoria) async {
     final todos = await getAlimentos();
     return todos.where((a) => a.macro == categoria).toList();
   }
 
-  /// Limpia la caché (útil si quieres forzar una recarga).
   static void clearCache() => _cache = null;
 
-  // Normaliza texto: minúsculas y sin tildes básicas
   static String _normalize(String s) {
     return s
         .toLowerCase()

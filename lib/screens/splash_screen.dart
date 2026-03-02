@@ -22,7 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      // Sesión activa → ir directo a dietas
       Navigator.pushReplacementNamed(context, AppRoutes.verDietas);
     } else {
       Navigator.pushReplacementNamed(context, AppRoutes.login);

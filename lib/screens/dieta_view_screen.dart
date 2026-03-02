@@ -57,18 +57,15 @@ class _DietaViewScreenState extends State<DietaViewScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // ── Header total kcal ──────────────────────────────────────────
             _HeaderKcal(
               dieta: dieta,
               kcalObjetivo: kcalObjetivo,
             ),
             const SizedBox(height: 16),
 
-            // ── Macros resumen ─────────────────────────────────────────────
             if (_profile != null) _MacrosRow(profile: _profile!, dieta: dieta),
             const SizedBox(height: 16),
 
-            // ── Comidas ────────────────────────────────────────────────────
             ...dieta.comidas.map((comida) => _ComidaCard(
                   comida: comida,
                   kcalObjetivoPorComida: porComida,
@@ -76,7 +73,6 @@ class _DietaViewScreenState extends State<DietaViewScreen> {
 
             const SizedBox(height: 24),
 
-            // ── Botones Editar / Eliminar ──────────────────────────────────
             Row(
               children: [
                 Expanded(
@@ -123,7 +119,6 @@ class _DietaViewScreenState extends State<DietaViewScreen> {
 
             const SizedBox(height: 16),
 
-            // Consejo
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(12),
@@ -172,9 +167,6 @@ class _DietaViewScreenState extends State<DietaViewScreen> {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  HEADER con barra de progreso total
-// ─────────────────────────────────────────────────────────────────────────────
 
 class _HeaderKcal extends StatelessWidget {
   final Dieta dieta;
@@ -267,7 +259,6 @@ class _HeaderKcal extends StatelessWidget {
             ],
           ),
 
-          // Barra de progreso total (solo si hay perfil)
           if (kcalObjetivo != null) ...[
             const SizedBox(height: 12),
             Row(
@@ -314,9 +305,6 @@ class _HeaderKcal extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  FILA DE MACROS
-// ─────────────────────────────────────────────────────────────────────────────
 
 class _MacrosRow extends StatelessWidget {
   final UserProfile profile;
@@ -434,10 +422,6 @@ class _MacroItem extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  TARJETA DE COMIDA con barra de progreso propia
-// ─────────────────────────────────────────────────────────────────────────────
-
 class _ComidaCard extends StatelessWidget {
   final Comida comida;
   final double? kcalObjetivoPorComida;
@@ -467,7 +451,6 @@ class _ComidaCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Header de la comida
           Container(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
             decoration: const BoxDecoration(
@@ -490,7 +473,6 @@ class _ComidaCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    // "500 kcal / 667 kcal"
                     RichText(
                       text: TextSpan(
                         children: [
@@ -523,7 +505,6 @@ class _ComidaCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Barra de progreso por comida
                 if (kcalObjetivoPorComida != null) ...[
                   const SizedBox(height: 6),
                   ClipRRect(
@@ -544,7 +525,6 @@ class _ComidaCard extends StatelessWidget {
             ),
           ),
 
-          // Alimentos
           if (comida.alimentos.isEmpty)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
