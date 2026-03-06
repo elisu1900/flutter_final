@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_final_app/firebase_options.dart';
 import 'package:flutter_final_app/routes/routes.dart';
+import 'package:flutter_final_app/styles/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,14 +20,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'NutriTrack',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: const Color(0xFFEF6C00),
-        scaffoldBackgroundColor: const Color(0xFFFAFAF7),
-        fontFamily: 'Roboto',
-      ),
+      theme: AppTheme.theme,
       initialRoute: AppRoutes.splash,
       routes: AppRoutes.routes,
-      onGenerateRoute: AppRoutes.onGenerateRoute, // <-- maneja rutas con argumentos
     );
   }
 }

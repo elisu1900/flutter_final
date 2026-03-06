@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final_app/models/dieta.dart';
 import 'package:flutter_final_app/screens/body_measures_screen.dart';
 import 'package:flutter_final_app/screens/dieta_view_screen.dart';
 import 'package:flutter_final_app/screens/goal_activity_screen.dart';
