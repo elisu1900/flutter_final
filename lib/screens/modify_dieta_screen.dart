@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final_app/models/alimento.dart';
+import 'package:flutter_final_app/models/comida.dart';
+import 'package:flutter_final_app/models/dieta.dart';
 import 'package:flutter_final_app/widgets/buscador_alimento.dart';
 import 'package:flutter_final_app/services/local_storage_service.dart';
 import 'package:flutter_final_app/styles/app_colors.dart';
