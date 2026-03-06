@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_final_app/models/dieta.dart';
 import 'package:flutter_final_app/models/user_profile.dart';
-import 'package:flutter_final_app/styles/app_colors.dart';
 import 'package:flutter_final_app/widgets/macro_item.dart';
 
 class MacrosRow extends StatelessWidget {

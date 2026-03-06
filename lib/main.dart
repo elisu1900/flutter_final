@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.theme,
       initialRoute: AppRoutes.splash,
       routes: AppRoutes.routes,
+        onGenerateRoute: AppRoutes.onGenerateRoute, 
     );
   }
 }

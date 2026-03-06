@@ -9,7 +9,6 @@ import 'package:flutter_final_app/screens/personal_information_screen.dart';
 import 'package:flutter_final_app/screens/register_screen.dart';
 import 'package:flutter_final_app/screens/splash_screen.dart';
 import 'package:flutter_final_app/screens/view_dietas_screen.dart';
-import 'package:flutter_final_app/services/local_storage_service.dart';
 
 class AppRoutes {
   static const String splash      = '/';

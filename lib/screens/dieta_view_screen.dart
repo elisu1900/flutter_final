@@ -34,7 +34,6 @@ class _DietaViewScreenState extends State<DietaViewScreen> {
   Widget build(BuildContext context) {
     final dieta = widget.dieta;
     final kcalObjetivo = _profile?.kcalObjetivo;
-    final kcalActual = dieta.kcalTotal;
     final porComida = kcalObjetivo != null && dieta.comidas.isNotEmpty
         ? kcalObjetivo / dieta.comidas.length
         : null;

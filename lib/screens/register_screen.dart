@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_final_app/models/register_data.dart';
-import 'package:flutter_final_app/services/user_profile_service.dart';
 import 'package:flutter_final_app/styles/app_colors.dart';
 
 class RegisterScreen extends StatefulWidget {
