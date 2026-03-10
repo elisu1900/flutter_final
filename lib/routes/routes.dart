@@ -20,7 +20,6 @@ class AppRoutes {
   static const String verDietas   = '/ver-dietas';
   static const String dietaView   = '/dieta-view';
   static const String modifyDieta = '/modify-dieta';
-  static const String revision    = '/revision';   // ← nueva
 
   static final Map<String, WidgetBuilder> routes = {
     splash:    (_) => const SplashScreen(),
